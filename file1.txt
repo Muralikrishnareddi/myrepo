@@ -1,2 +1,22 @@
-this my fist file
-in github
+---
+pool:
+  name: 'Azure Pipelines'
+  vmImage: ubuntu-latest
+
+trigger:
+  - master
+
+resources:
+  repositories:
+    - repository: 'azuredevopstemplates'
+      name: 'GitPracticeRepo/AzureDevOpsReusableTemplates'
+      endpoint: 'github.com_shaikkhajaibrahim'
+      type: 'github'
+      ref: 'refs/heads/main'
+
+steps:
+  - template: java/maven-build-simple.yaml@azuredevopstemplates
+    parameters:
+      jdkVersion: '1.8'
+      pathToPublish: 'gameoflife-web/target/gameoflife.war'
+  
